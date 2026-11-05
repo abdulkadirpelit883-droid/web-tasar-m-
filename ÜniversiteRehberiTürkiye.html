@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Üniversite Rehberi - Türkiye</title>
+    <style>
+        /* Genel Ayarlar ve Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        /* Header / Navigasyon */
+        header.navbar {
+            background-color: #0f172a;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            background: #2563eb;
+            color: white;
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .logo-text span {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: white;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        /* Hero / Ana Karşılama Alanı */
+        .hero {
+            position: relative;
+            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), 
+                        url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 6rem 1rem;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem auto;
+            color: #e2e8f0;
+        }
+
+        /* Arama Kutusu ve Filtreler */
+        .search-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .search-main-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: #f1f5f9;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            gap: 0.5rem;
+        }
+
+        .search-input-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 1rem;
+            width: 100%;
+            color: #334155;
+        }
+
+        .btn-search {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-search:hover {
+            background: #1d4ed8;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .filter-select {
+            flex: 1;
+            padding: 0.7rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+            color: #475569;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        /* Özellik Kartları (Örn: Üniversiteleri Keşfet vb.) */
+        .features-grid {
+            max-width: 1200px;
+            margin: -3rem auto 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 0.4rem;
+            color: #0f172a;
+        }
+
+        .feature-card p {
+            font-size: 0.85rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* Ana İçerik / Üniversite Kartları */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            color: #0f172a;
+        }
+
+        .section-header a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .university-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .uni-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .uni-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .card-img-container {
+            position: relative;
+            height: 160px;
+        }
+
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .fav-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: #64748b;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        .uni-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+
+        .uni-meta {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 0.75rem;
+        }
+
+        .badge-devlet {
+            background: #eff6ff;
+            color: #1d4ed8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .uni-desc {
+            font-size: 0.85rem;
+            color: #475569;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .card-footer {
+            border-top: 1px solid #f1f5f9;
+            padding-top: 0.75rem;
+        }
+
+        .detail-link {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        /* Mobil Uyum Düzenlemeleri */
+        @media (max-width: 768px) {
+            header.navbar { padding: 1rem; }
+            nav ul { display: none; }
+            .hero h2 { font-size: 2rem; }
+            .search-main-row { flex-direction: column; }
+            .filter-row { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Menü -->
+    <header class="navbar">
+        <div class="logo-area">
+            <div class="logo-icon">🎓</div>
+            <div class="logo-text">
+                <h1>Üniversite Rehberi</h1>
+                <span>TÜRKİYE</span>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Anasayfa</a></li>
+                <li><a href="#">Üniversiteler</a></li>
+                <li><a href="#">Bölümler</a></li>
+                <li><a href="#">Şehirler</a></li>
+                <li><a href="#">Karşılaştırma</a></li>
+                <li><a href="#">Hakkımızda</a></li>
+            </ul>
+        </nav>
+        <div class="nav-actions">
+            <button class="icon-btn">❤️</button>
+            <button class="icon-btn">🔍</button>
+        </div>
+    </header>
+
+    <!-- Hero / Arama Alanı -->
+    <section class="hero">
+        <h2>Hayalindeki Üniversiteye<br>Bir Adım Daha Yakınsın!</h2>
+        <p>Türkiye'deki tüm üniversiteler, bölümler, taban puanları ve daha fazlası tek bir platformda. Doğru bilgi, doğru tercih.</p>
+        
+        <div class="search-container">
+            <div class="search-main-row">
+                <div class="search-input-box">
+                    <span>🔍</span>
+                    <input type="text" placeholder="Üniversite adı veya bölüm ara...">
+                </div>
+                <button class="btn-search">Ara</button>
+            </div>
+            <div class="filter-row">
+                <select class="filter-select">
+                    <option>📍 Tüm Şehirler</option>
+                    <option>İstanbul</option>
+                    <option>Ankara</option>
+                    <option>İzmir</option>
+                </select>
+                <select class="filter-select">
+                    <option>🏛️ Tüm Üniversiteler</option>
+                    <option>Devlet Üniversitesi</option>
+                    <option>Vakıf Üniversitesi</option>
+                </select>
+                <select class="filter-select">
+                    <option>⭐ Tüm Türler</option>
+                    <option>Lisans (4 Yıllık)</option>
+                    <option>Önlisans (2 Yıllık)</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bilgi / Özellik Blokları -->
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🏛️</div>
+            <h3>Üniversiteleri Keşfet</h3>
+            <p>Türkiye'deki devlet ve vakıf üniversitelerini incele.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Bölüm ve Taban Puanları</h3>
+            <p>Bölümlerin taban puanları ve başarı sıralamalarını gör.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⚖️</div>
+            <h3>Karşılaştırma Yap</h3>
+            <p>İki üniversiteyi yan yana karşılaştır.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">❤️</div>
+            <h3>Favorilere Ekle</h3>
+            <p>İlgilendiğin üniversiteleri kaydet, daha sonra incele.</p>
+        </div>
+    </div>
+
+    <!-- Üniversite Kartları Listesi -->
+    <main class="container">
+        <div class="section-header">
+            <h2>Öne Çıkan Üniversiteler</h2>
+            <a href="#">Tümünü Gör →</a>
+        </div>
+
+        <div class="university-grid">
+            
+            <!-- Kart 1 -->
+            <div class="uni-card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=500&q=80" alt="Boğaziçi">
+                    <button class="fav-btn">❤️</button>
+                </div>
+                <div class="card-body">
+                    <h3>Boğaziçi Üniversitesi</h3>
+                    <div class="uni-meta">
+                        <span>📍 İstanbul</span>
+                        <span class="badge-devlet">Devlet</span>
+                    </div>
+                    <p class="uni-desc">Türkiye'nin en köklü ve saygın üniversitelerinden biridir. 1863 yılında kurulmuştur.</p>
+                    <div class="card-footer">
+                        <a href="#" class="detail-link">Detayları Gör →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kart 2 -->
+            <div class="uni-card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=500&q=80" alt="ODTÜ">
+                    <button class="fav-btn">❤️</button>
+                </div>
+                <div class="card-body">
+                    <h3>Orta Doğu Teknik Üniv.</h3>
+                    <div class="uni-meta">
+                        <span>📍 Ankara</span>
+                        <span class="badge-devlet">Devlet</span>
+                    </div>
+                    <p class="uni-desc">Bilim ve teknoloji odaklı, uluslararası alanda tanınan bir üniversitedir.</p>
+                    <div class="card-footer">
+                        <a href="#" class="detail-link">Detayları Gör →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kart 3 -->
+            <div class="uni-card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=500&q=80" alt="İTÜ">
+                    <button class="fav-btn">❤️</button>
+                </div>
+                <div class="card-body">
+                    <h3>İstanbul Teknik Üniv.</h3>
+                    <div class="uni-meta">
+                        <span>📍 İstanbul</span>
+                        <span class="badge-devlet">Devlet</span>
+                    </div>
+                    <p class="uni-desc">Mühendislik ve teknoloji alanında Türkiye'nin öncü üniversitelerindendir.</p>
+                    <div class="card-footer">
+                        <a href="#" class="detail-link">Detayları Gör →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kart 4 -->
+            <div class="uni-card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?auto=format&fit=crop&w=500&q=80" alt="Hacettepe">
+                    <button class="fav-btn">❤️</button>
+                </div>
+                <div class="card-body">
+                    <h3>Hacettepe Üniversitesi</h3>
+                    <div class="uni-meta">
+                        <span>📍 Ankara</span>
+                        <span class="badge-devlet">Devlet</span>
+                    </div>
+                    <p class="uni-desc">Sağlık bilimleri ve sosyal bilimler alanında güçlü bir üniversitedir.</p>
+                    <div class="card-footer">
+                        <a href="#" class="detail-link">Detayları Gör →</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Alt Bilgi -->
+    <footer>
+        <p>&copy; 2026 Üniversite Rehberi Türkiye. Tüm hakları saklıdır. — Bilgisayar Programcılığı Projesi</p>
+    </footer>
+
+</body>
+</html>
